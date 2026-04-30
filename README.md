@@ -158,4 +158,4 @@ Ne jamais utiliser ce bot sur un compte réel sans tests approfondis.
 
 ## Auteur
 
-Projet développé par **Ton Nom**
+Projet développé par **MARC DOWE**
