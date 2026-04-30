@@ -1,40 +1,47 @@
-# Binance Trading Bot BTC/USDT
+# Binance Trading Bot
 
-Un bot de trading automatique en Python utilisant l’API Binance et des indicateurs techniques simples pour générer des signaux d’achat et de vente sur la paire **BTCUSDT**.
+# Binance Trading Bot
 
-## Aperçu
+[![Python](https://img.shields.io/badge/Python-3.10+-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.0+-green.svg?style=for-the-badge&logo=pandas)](https://pandas.pydata.org/)
+[![Binance](https://img.shields.io/badge/Binance-API-yellow.svg?style=for-the-badge&logo=binance)](https://binance.com/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
-Ce projet récupère les données du marché via Binance, calcule plusieurs indicateurs techniques, puis décide d’acheter, vendre ou attendre selon des conditions définies dans le script.
+Bot de trading automatique en Python utilisant l’API Binance et des indicateurs techniques pour générer des signaux d’achat, de vente ou d’attente sur la paire **BTCUSDT**.
 
-La stratégie utilisée repose sur :
+## Présentation
 
-- le **RSI** pour détecter des zones de surachat ou de survente
-- la **SMA 50** et la **SMA 200** pour confirmer la tendance
+Ce projet a pour objectif de créer un bot simple capable de :
+
+- récupérer les données de marché depuis Binance
+- analyser ces données avec des indicateurs techniques
+- générer un signal de trading
+- envoyer automatiquement un ordre d’achat ou de vente
+
+Le bot fonctionne actuellement avec une stratégie basée sur le **RSI**, la **SMA 50** et la **SMA 200**.
+
+## Stratégie utilisée
+
+Le signal de trading est défini selon les règles suivantes :
+
+- **Buy** : RSI < 30 et SMA 50 > SMA 200
+- **Sell** : RSI > 70 et SMA 50 < SMA 200
+- **Hold** : aucune condition validée
+
+Cette logique permet de combiner un signal de surachat/survente avec une confirmation de tendance.
 
 ## Fonctionnement
 
-Le bot effectue les étapes suivantes :
+À chaque cycle, le script :
 
-1. Récupère les dernières bougies du marché
-2. Convertit les données dans un DataFrame avec pandas
-3. Calcule les indicateurs techniques
-4. Génère un signal de trading : `buy`, `sell` ou `hold`
-5. Envoie un ordre au marché sur Binance si les conditions sont remplies
-6. Répète le processus dans une boucle continue
+1. récupère les dernières bougies du marché
+2. transforme les données en DataFrame avec `pandas`
+3. calcule les indicateurs techniques avec `ta`
+4. analyse la dernière ligne des données
+5. décide d’acheter, de vendre ou de ne rien faire
+6. relance le processus dans une boucle continue
 
-## Indicateurs utilisés
-
-- **RSI (Relative Strength Index)** sur 14 périodes
-- **SMA 50**
-- **SMA 200**
-
-### Conditions de signal
-
-- **buy** : RSI < 30 et SMA 50 > SMA 200
-- **sell** : RSI > 70 et SMA 50 < SMA 200
-- **hold** : sinon
-
-## Technologies
+## Technologies utilisées
 
 - Python
 - pandas
@@ -43,32 +50,32 @@ Le bot effectue les étapes suivantes :
 
 ## Installation
 
-Clone le projet :
+### 1. Cloner le dépôt
 
 ```bash
 git clone https://github.com/ton-username/ton-repo.git
 cd ton-repo
 ```
 
-Crée un environnement virtuel :
+### 2. Créer un environnement virtuel
 
 ```bash
 python -m venv venv
 ```
 
-Active l’environnement :
+### 3. Activer l’environnement virtuel
 
-### Windows
+#### Sous Windows
 ```bash
 venv\Scripts\activate
 ```
 
-### Linux / macOS
+#### Sous Linux / macOS
 ```bash
 source venv/bin/activate
 ```
 
-Installe les dépendances :
+### 4. Installer les dépendances
 
 ```bash
 pip install -r requirements.txt
@@ -76,22 +83,24 @@ pip install -r requirements.txt
 
 ## Dépendances
 
-Ce projet utilise :
+Le projet utilise principalement les bibliothèques suivantes :
 
-- `pandas`
-- `ta`
-- `python-binance`
+```txt
+pandas
+ta
+python-binance
+```
 
 ## Configuration
 
-Dans ton script, remplace les valeurs suivantes par tes vraies clés API Binance :
+Avant de lancer le bot, il faut renseigner les clés API Binance dans le script :
 
 ```python
 api_key = "YOUR_API_KEY"
 api_secret = "YOUR_SECRET_KEY"
 ```
 
-## Lancer le bot
+## Lancer le projet
 
 ```bash
 python bot.py
@@ -107,38 +116,48 @@ python bot.py
 └── .gitignore
 ```
 
-## Exemple de sortie console
+## Exemple de sortie
 
 ```bash
 Récupération des données de marché...
 Dernier prix: 64250.10, RSI: 28.44, SMA 50: 64020.50, SMA 200: 63110.80, Signal: buy
 ```
 
-## Limites
+## Objectif du projet
 
-Ce projet est un projet d’apprentissage. Il ne comprend pas encore :
+Ce projet a été réalisé dans un but d’apprentissage pour :
 
-- de backtesting
-- de stop loss
-- de take profit
-- de gestion avancée du risque
-- de journalisation propre
-- de protection avancée des clés API
+- manipuler une API de trading
+- exploiter des données financières avec Python
+- utiliser des indicateurs techniques
+- comprendre la logique de base d’un bot de trading automatisé
+
+## Limites actuelles
+
+Le projet reste simple et peut être amélioré sur plusieurs points :
+
+- pas de stop loss
+- pas de take profit
+- pas de backtesting
+- pas de gestion avancée du risque
+- pas de journalisation avec logs
+- clés API directement dans le code
 
 ## Améliorations possibles
 
-- Utiliser un fichier `.env` pour stocker les clés
-- Ajouter des logs avec `logging`
-- Ajouter un stop loss / take profit
-- Faire du backtesting sur données historiques
-- Gérer plusieurs paires
-- Corriger précisément la temporisation pour qu’elle corresponde à l’intervalle utilisé
+- stocker les clés API dans un fichier `.env`
+- ajouter un système de logs
+- intégrer un stop loss / take profit
+- améliorer la stratégie avec d’autres indicateurs
+- faire du backtesting sur données historiques
+- gérer plusieurs cryptomonnaies
 
 ## Avertissement
 
-Ce bot est fourni uniquement à des fins éducatives.  
-Le trading de cryptomonnaies comporte des risques financiers importants.
+Ce projet est à but éducatif uniquement.  
+Le trading automatique comporte des risques financiers importants.  
+Ne jamais utiliser ce bot sur un compte réel sans tests approfondis.
 
 ## Auteur
 
-Projet réalisé par **Ton Nom**
+Projet développé par **Ton Nom**
