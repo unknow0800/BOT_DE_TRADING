@@ -1,7 +1,5 @@
 # Binance Trading Bot
 
-# Binance Trading Bot
-
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
 [![Pandas](https://img.shields.io/badge/Pandas-2.0+-green.svg?style=for-the-badge&logo=pandas)](https://pandas.pydata.org/)
 [![Binance](https://img.shields.io/badge/Binance-API-yellow.svg?style=for-the-badge&logo=binance)](https://binance.com/)
